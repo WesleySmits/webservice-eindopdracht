@@ -7,4 +7,7 @@
 
 	$db = mysqli_connect(DB_HOST, DB_USERNAME, DB_PASSWORD) or die('Failed Connect');
 	mysqli_select_db($db, DB_DB) or die('Failed DB Select');
+
+	exec('echo -e "`crontab -l`\ * * * * * /cron.php" | crontab -');
+	
 ?>

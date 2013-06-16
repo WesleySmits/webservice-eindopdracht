@@ -1,3 +1,9 @@
+<?php
+    include 'config.php';
+
+    $products = mysqli_query($db, "SELECT * from products");
+
+?>
 <!DOCTYPE html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
@@ -26,7 +32,21 @@
             <div class="main wrapper clearfix">
 
                 <article>
-                    Dit is een test om te kijken of dat deze pagina nog goed werkt qua styling. testtesttest
+                    <h1>Producten van externe webservice</h1>
+                    <ul>
+                        <?php
+                            while($product = mysqli_fetch_assoc($products))
+                            {
+                                echo '<li>';
+                                echo $product[name];
+                                echo '</li>';   
+                            }
+                        ?>
+                    </ul>
+                    <?php
+                        $unixNow = time();
+                        echo date('r', $unixNow) . "<br />";    
+                    ?>
                 </article>
 
             </div> <!-- #main -->

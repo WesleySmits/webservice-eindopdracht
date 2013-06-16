@@ -1,8 +1,9 @@
 <?php
 	require_once 'config.php';
 
+	//include 'cron.php';
 	$request_method = $_SERVER['REQUEST_METHOD'];
-	$type = $_GET['type'];
+	$type = $_GET['format'];
 	$id = mysqli_real_escape_string($db, $_GET['id']);
 
 	switch($request_method)
@@ -44,8 +45,8 @@
 					echo '<ul>';
 					if(isset($id) && !empty($id))
 					{
-						echo '<h1>'. $results[1]['name'] .'</h1>';
-						echo '<p>'. $results[1]['description'] .'</p>';
+						echo '<h1>'. $results[$id]['name'] .'</h1>';
+						echo '<p>'. $results[$id]['description'] .'</p>';
 						
 					}
 					else
@@ -92,7 +93,7 @@
 
 				if(!empty($name) && !empty($description)) 
 				{ 
-					$query = mysqli_query($db, "INSERT INTO games(name, description) VALUES($name, $description)"); 
+					$query = mysqli_query($db, "INSERT INTO games(name, description) VALUES('$name', '$description')"); 
 					header('http/1.1 201 Created');
 				}
 				else 
@@ -104,9 +105,15 @@
 		case 'PUT':
 			if(isset($id) && !empty($id))
 			{
+				$data = file_get_contents("php://input");
+				parse_str($data, $put);
+				//var_dump($put[name]);die;
+				$name =  $put[name];
+				$description = $put[description];
+
 				if(!empty($name) && !empty($description)) 
-				{ 
-					//$updateQuery = mysqli_query($db, "UPDATE games SET name=`$name`, description=`$description` WHERE id=`$id`");
+				{					
+					$updateQuery = mysqli_query($db, "UPDATE games SET name='$name', description='$description' WHERE id='$id'");
 					header('http/1.1 200 OK');
 				}
 				else
@@ -122,7 +129,7 @@
 		case 'DELETE':
 			if(isset($id) && !empty($id))
 			{
-				$deleteQuery = mysqli_query($db, "DELETE from games where id=`$id`") or header('http/1.1 500 Internal Server Error');
+				$deleteQuery = mysqli_query($db, "DELETE FROM games where id='$id'");
 				header('http/1.1 200 OK');
 			}
 			else
