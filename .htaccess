@@ -1,0 +1,10 @@
+<IfModule mod_rewrite.c>
+  #RewriteEngine On
+  RewriteRule ^api/games/(json|xml)$ games.php?type=(json|xml)
+  RewriteRule ^api/games/([0-9]+)/(json|xml)$ games.php?id=$1&format=$2
+
+  RewriteRule ^/api/games projects/webservice/api/games.html
+  #RewriteRule ^/api/games/1 projects/webservice/api/games.php?id=1
+</IfModule>
+
+AddType application/x-httpd-php .html
