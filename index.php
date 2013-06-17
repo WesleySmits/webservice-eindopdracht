@@ -2,6 +2,8 @@
     include 'config.php';
 
     $products = mysqli_query($db, "SELECT * from products");
+    $product = mysqli_query($db, "SELECT timestamp from products");
+    $assoc = mysqli_fetch_assoc($product);
 
 ?>
 <!DOCTYPE html>
@@ -43,10 +45,7 @@
                             }
                         ?>
                     </ul>
-                    <?php
-                        $unixNow = time();
-                        echo date('r', $unixNow) . "<br />";    
-                    ?>
+                    <?php echo $assoc['timestamp'];?>
                 </article>
 
             </div> <!-- #main -->

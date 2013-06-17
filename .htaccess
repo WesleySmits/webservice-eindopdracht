@@ -3,6 +3,7 @@
 
   RewriteRule ^api/games/(json|xml|html)$ games.php?format=$1
   RewriteRule ^api/games/([0-9]+)/(json|xml|html)$ games.php?id=$1&format=$2
+  #RewriteRule ^api/games games.php?format=xml
 
 </IfModule>
 

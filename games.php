@@ -53,7 +53,7 @@
 					{
 						foreach($results as $result)
 					{
-						echo '<li><a href="'. $result['id'] .'">'. $result['name'] .'</a></li>';
+						echo '<li><a href="'. $result['id'] .'/html'.'">'. $result['name'] .'</a></li>';
 					}
 						echo '</ul>';
 					}
